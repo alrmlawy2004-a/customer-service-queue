@@ -1,5 +1,5 @@
 
-package com.mycompany.finalproject1320220837;
+package queue;
 
 
 class Customer {

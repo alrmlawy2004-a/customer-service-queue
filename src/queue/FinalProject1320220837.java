@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.finalproject1320220837;
+package queue;
 
 
 import java.util.Scanner;

@@ -10,14 +10,22 @@ Java 17 or later is required. From this directory:
 mvn compile exec:java
 ```
 
-Main class: `com.mycompany.finalproject1320220837.FinalProject1320220837`.
+Main class: `queue.FinalProject1320220837`.
 
 Without Maven, use PowerShell:
 
 ```powershell
 $sources = Get-ChildItem src/main/java -Recurse -Filter *.java
 javac -encoding UTF-8 -d out $sources.FullName
-java -cp out com.mycompany.finalproject1320220837.FinalProject1320220837
+java -cp out queue.FinalProject1320220837
 ```
 
 See the [collection documentation](../README.md) for the application's scope and limitations. Compilation has been checked with JDK 23; interactive workflows are not exhaustively tested.
+
+## Source code
+
+- [Customer.java](src/queue/Customer.java)
+- [FinalProject1320220837.java](src/queue/FinalProject1320220837.java)
+- [SimpleQueue.java](src/queue/SimpleQueue.java)
+- [SimpleStack.java](src/queue/SimpleStack.java)
+- [User.java](src/queue/User.java)
