@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author H.P
  */
-   public class FinalProject1320220837 {
+   public class QueueApplication {
 
     static SimpleQueue waitingQueue = new SimpleQueue(20);
     static SimpleStack servedStack = new SimpleStack(20);
@@ -29,16 +29,21 @@ import java.util.Scanner;
         users[userCount++] = new User("Anas", 123, false);
         users[userCount++] = new User("Alaa", 123, true);
 
-        while (true) {
+        while (in.hasNextLine()) {
 
             System.out.println("\nWelcome to CompanyName");
             System.out.println("Press Enter to get your waiting ID");
-            System.out.println("Or enter username:");
+            System.out.println("Or enter username (type exit to quit):");
 
             String input = in.nextLine();
+            if (input.equalsIgnoreCase("exit")) return;
 
             // Customer
             if (input.isEmpty()) {
+                if (waitingQueue.isFull()) {
+                    System.out.println("The waiting queue is full. Please try later.");
+                    continue;
+                }
                 Customer c = new Customer(waitingCounter++);
                 waitingQueue.enqueue(c);
                 System.out.println("Your waiting ID is: " + c.waitingId);
@@ -61,7 +66,10 @@ import java.util.Scanner;
     // Login 
     static User login(String username, Scanner in) {
         System.out.print("Password: ");
-        int pass = Integer.parseInt(in.nextLine());
+        if (!in.hasNextLine()) return null;
+        int pass;
+        try { pass = Integer.parseInt(in.nextLine()); }
+        catch (NumberFormatException e) { return null; }
 
         for (int i = 0; i < userCount; i++) {
             if (users[i].username.equals(username)
@@ -76,14 +84,19 @@ import java.util.Scanner;
     // Employee Menu ===================== 
     static void employeeMenu(Scanner in) {
 
-        while (true) {
+        while (in.hasNextLine()) {
             System.out.println("\nEmployee Menu");
             System.out.println("1- Serve next customer");
             System.out.println("2- Check last served customer");
             System.out.println("3- View all served customers");
             System.out.println("0- Logout");
 
-            int choice = Integer.parseInt(in.nextLine());
+            int choice;
+            try { choice = Integer.parseInt(in.nextLine()); }
+            catch (NumberFormatException e) {
+                System.out.println("Enter a menu number.");
+                continue;
+            }
 
             if (choice == 1) {
                 serveCustomer(in);
@@ -108,6 +121,10 @@ import java.util.Scanner;
             return;
         }
 
+        if (servedStack.isFull()) {
+            System.out.println("Served history is full. No customer was removed from the queue.");
+            return;
+        }
         Customer c = waitingQueue.dequeue();
 
         System.out.println("Serving customer " + c.waitingId);
@@ -134,13 +151,18 @@ import java.util.Scanner;
     /* ===================== Admin Menu ===================== */
     static void adminMenu(Scanner in) {
 
-        while (true) {
+        while (in.hasNextLine()) {
             System.out.println("\nAdmin Menu");
             System.out.println("1- View customers queue");
             System.out.println("2- View last served customer");
             System.out.println("0- Logout");
 
-            int choice = Integer.parseInt(in.nextLine());
+            int choice;
+            try { choice = Integer.parseInt(in.nextLine()); }
+            catch (NumberFormatException e) {
+                System.out.println("Enter a menu number.");
+                continue;
+            }
 
             if (choice == 1) {
                 waitingQueue.printQueue();

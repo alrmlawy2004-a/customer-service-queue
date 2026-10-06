@@ -13,16 +13,21 @@ class SimpleStack {
     int top = 0;
 
     public SimpleStack(int size) {
+        if (size <= 0) throw new IllegalArgumentException("Capacity must be positive.");
         stack = new Customer[size];
     }
 
     public void push(Customer c) {
+        if (isFull()) throw new IllegalStateException("Served history is full.");
         stack[top++] = c;
     }
 
     public Customer peek() {
+        if (isEmpty()) throw new IllegalStateException("Served history is empty.");
         return stack[top - 1];
     }
+
+    public boolean isFull() { return top == stack.length; }
 
     public boolean isEmpty() {
         return top == 0;
